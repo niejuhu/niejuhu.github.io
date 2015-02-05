@@ -1,1 +1,15 @@
-Hello World
+---
+layout: default
+title: My Blog
+---
+
+<h2>Blog List</h2>
+
+<ul>
+
+    {% for post in site.posts %}
+        <li>
+        {{ post.date | date_to_string }} <a href="{{ post.url }}">{{ post.title}} </a>
+        </li>
+    {% endfor %}
+</ul>
