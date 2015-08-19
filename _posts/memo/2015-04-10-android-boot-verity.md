@@ -156,32 +156,100 @@ build/tools/releasetools/build_image.py:
 
 ## Verify system.img
 
-To verify system.img the system partition entry in the fstab file should have verify flag:
+The init program will trigger the "late-init" property in the boot process:
 
-device/vendor/product/fstab.platform:
+system/core/init.c:
+
+        ...
+        action_for_each_trigger("late-init", action_add_queue_tail);
+        ...
+        for (;;) {
+           execute_one_command();
+        }
+
+The "late-init" property will trigger "fs" property:
+
+system/core/rootdir/init.rc:
+
+        on late-init
+        trigger early-fs
+        trigger fs
+        trigger post-fs
+        trigger post-fs-data
+
+then "fs" property will trigger "mount_all" action with "fstab.<target>" as paramenter:
+
+/init.target.rc:
+
+        on fs
+        mount_all fstab.<target>
+
+fstab.<target> records how to mount Android partitions. To verify system.img the system partition entry in the fstab file should have verify flag:
+
+fstab.<target>:
 
         /dev/block/mtdblock0 /system ext4 ro,barrier=1 wait,verify
 
-When init.rc mounting a system image, the mounting image is verified if it has verify flag.
+The "mount_all" action is handle by "do_mount_all" in the init program:
 
-init.xx.rc:
+system/core/init/keywords.h:
 
-        on fs
-            mount_all fstab.platform
+        KEYWORD(mount_all, COMMAND, 1, do_mount_all)
 
-system/core/init/builtins.c
+system/core/init/builtins.c:
 
-        do_mount_all():
-        fstab = fs_mgr_read_fstab(args[1]);
-        child_ret = fs_mgr_mount_all(fstab);
+        int do_mount_all(int nargs, char **args)
+        {
+            ...
+            fstab = fs_mgr_read_fstab(args[1]);
+            child_ret = fs_mgr_mount_all(fstab);
+            fs_mgr_free_fstab(fstab);
+            ...
+        }
 
 system/core/fs_mgr/fs_mgr.c
 
-        if ((fstab->recs[i].fs_mgr_flags & MF_VERIFY) &&
-                !device_is_debuggable()) {
-            wait_for_file("/dev/device-mapper", WAIT_TIMEOUT);
-            if (fs_mgr_setup_verity(&fstab->recs[i]) < 0) {
-                ERROR("Could not set up verified partition, skipping!\n");
-                continue;
+        int fs_mgr_mount_all(struct fstab *fstab)
+        {
+            ...
+            if ((fstab->recs[i].fs_mgr_flags & MF_VERIFY) &&
+                    !device_is_debuggable()) {
+                wait_for_file("/dev/device-mapper", WAIT_TIMEOUT);
+                if (fs_mgr_setup_verity(&fstab->recs[i]) < 0) {
+                    ERROR("Could not set up verified partition, skipping!\n");
+                    continue;
+                }
             }
+            ...
+        }
+
+The function "fs_mgr_setup_verity" creates dm-verity device with the mount point, verify signature of dm-verity metadata and setup property:
+
+system/core/fs_mgr/fs_mgr_verity.c:
+
+        int fs_mgr_setup_verity(...)
+        {
+            fd = open("/dev/device-mapper", O_RDWR);
+
+            /* create dm-verity device with mount point */
+            create_verity_device(io, mount_point, fd);
+
+            /* get the created dm-verity device name which is /dev/block/dm-<dev-num> */
+            get_verity_device_name(io, mount_point, fd, &verity_blk_name);
+
+            /* verify signature of dm-verity metadata */
+            read_verity_metadata();
+            verity_table();
+
+            /* start the device */
+            load_verity_table();
+            resume_verity_table();
+
+            /* update the block device name, which is /dev/block/dm-<dev-num> */
+            fstab->blk_device = verity_blk_name;
+
+            /* setup property indicating that the mount_point partition is verified:
+             *      partition.<mount_point>.verified=1
+             */
+            set_verified_property();
         }
