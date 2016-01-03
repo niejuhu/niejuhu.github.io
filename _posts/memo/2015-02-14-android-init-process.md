@@ -1,6 +1,3 @@
-Android Init Process
-====================
-
 Android boot.img中的内核完成初始化之后，启动init进程。init进程完成以下工作：
 
 1. 解析init.rc脚本。此脚本配置了Android启动中要执行的任务
@@ -9,8 +6,7 @@ Android boot.img中的内核完成初始化之后，启动init进程。init进�
     * 启动系统服务，监控并控制系统服务的执行
     * 提供系统property服务
 
-init.rc
--------
+# init.rc
 
 init.rc使用Android init language编写，语法规则参考
 android-src/system/core/init/readme.txt。
@@ -31,8 +27,7 @@ init进程解析init.rc脚本，生成如下数据结构。之后根据条件执
                           | ...      |         | ...      |
                           +----------+         +----------+
 
-执行初始化动作
------------
+# 执行初始化动作
 
 解析完init.rc文件之后，init程序将要执行的action按照一定顺序放入`action_queue`链表中：
 
@@ -70,8 +65,7 @@ init进程解析init.rc脚本，生成如下数据结构。之后根据条件执
 对于每个action，init程序依次执行其中的命令（cmds）。有些命令会将新的action放入
 `action_queue`末尾并最终被执行。
 
-系统服务
-------
+# 系统服务
 
 在action执行过程中，通过`start xxx`或者`class_start xxx`启动某个或者某一类service。
 例如启动console和adbd服务：
@@ -95,8 +89,7 @@ init循环读取socket，获取service退出事件，根据service属性作对�
 Android支持通过组合键启动service。init进程通过读取`/dev/keychord`文件监听组合键，
 启动对应的service。
 
-property服务
------------
+# property服务
 
 init进程的另一个功能是初始化property服务，并提供property的写入功能。同时监控property的变化，
 根据property变化，执行特定的action。

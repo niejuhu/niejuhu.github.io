@@ -1,5 +1,3 @@
-# How android build system image
-
 We use command "make systemimage" to build system.img. This post list code which can show how it works.
 
 The target `systemimage` is defined in `android-src/build/core/Makefile`:

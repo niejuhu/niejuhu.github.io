@@ -1,9 +1,7 @@
-# Android Boot Verity
-
 Google has a detailed document of this feature, see [Verifying Boot](https://source.android.com/devices/tech/security/verifiedboot/verified-boot.html).
 Here is part of the code.
 
-## Sign boot.img
+# Sign boot.img
 
 boot.img is signed after building if `PRODUCT_SUPPORTS_VERITY` is set to true in the makefile.
 See [Android Boot Image]
@@ -77,7 +75,7 @@ system/extra/verity/BootSignature.java:
          *     END
          */
 
-## Verify boot.img
+# Verify boot.img
 
 In the boot process of device aboot verify the boot.img.
 
@@ -119,7 +117,7 @@ bootable/bootloader/lk/platform/msm_shared/boot_verifier.c:
 
         boot_verify_image: verify
 
-## Sign system.img
+# Sign system.img
 
 system.img is signed if `PRODUCT_SUPPORTS_VERITY` is set to true.
 See [Android System Image]
@@ -154,7 +152,7 @@ build/tools/releasetools/build_image.py:
 
 `build_verity_tree` and `build_verity_metadata.py` are both in `system/extra/verity` dir.
 
-## Verify system.img
+# Verify system.img
 
 The init program will trigger the "late-init" property in the boot process:
 

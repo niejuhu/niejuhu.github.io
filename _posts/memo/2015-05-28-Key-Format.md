@@ -1,6 +1,6 @@
-# Key Format
+Some notes about key format.
 
-## ASN.1
+# ASN.1
 
 "ASN.1 is a formal notation used for describing data transmitted by telecommunications protocols, regardless of language implementation and physical representation of these data, whatever the application, whether complex or very simple."
 
@@ -15,9 +15,9 @@ Thare are two points:
 [Tools](http://www.itu.int/en/ITU-T/asn1/Pages/Tools.aspx)
 
 
-## Key format
+# Key format
 
-### Public key format
+## Public key format
 
 Many tools use the format defined in [x509](https://tools.ietf.org/html/rfc5280#section-4.1.2.3)
 
@@ -38,7 +38,7 @@ For the rsa public key, The AlgorithmIdentifier should be:
 
 and the subjectPublicKey should be BIT STRING of RSAPublicKey. See [RFC3279](https://tools.ietf.org/html/rfc3279)
 
-### Private key format
+## Private key format
 
 Defined in [pkcs#8](https://www.ietf.org/rfc/rfc5208.txt)
 
@@ -62,7 +62,7 @@ Defined in [pkcs#8](https://www.ietf.org/rfc/rfc5208.txt)
     EncryptionAlgorithmIdentifier ::= AlgorithmIdentifier
     EncryptedData ::= OCTET STRING
 
-### Rsa Public&Private key format
+## Rsa Public&Private key format
 
 Defined in [pkcs#1](https://www.ietf.org/rfc/rfc3447.txt)
 
@@ -84,7 +84,7 @@ Defined in [pkcs#1](https://www.ietf.org/rfc/rfc3447.txt)
         otherPrimeInfos   OtherPrimeInfos OPTIONAL
     }
 
-## Key file format
+# Key file format
 
 DER key file is the asn.1 DER encoding of key or certificate.
 

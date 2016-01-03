@@ -1,8 +1,6 @@
-# Android boot image
-
 记录Android boot image相关知识，工具使用等。
 
-## Android如何生成boot image
+# Android如何生成boot image
 
 Android boot image通过命令`make bootimage`生成，其流程大致如下：
 
@@ -116,7 +114,7 @@ mkbootimg生成的boot.img文件结构在代码里写的很清楚：
     **    else: jump to kernel_addr
     */
 
-## 解压Android boot.img以及还原根文件系统
+# 解压Android boot.img以及还原根文件系统
 
 按照Android boot.img的文件结构进行解压，生成kernel以及ramdisk.img：
 
@@ -127,7 +125,7 @@ mkbootimg生成的boot.img文件结构在代码里写的很清楚：
 
     mkdir root && cd root && gunzip -c ../<boot.img>-ramdisk | cpio -i
 
-## 重新打包Android boot.img
+# 重新打包Android boot.img
 
 如果想要修改kernel或者ramdisk.img，就需要重新打包，首先重新压缩ramdisk.img(如果有修改）
 
@@ -137,10 +135,10 @@ mkbootimg生成的boot.img文件结构在代码里写的很清楚：
 
     packbootimg --kernel <your-kernel> --ramdisk <your-ramdisk.img> --args <args-file-from-unpackbootimg>
 
-## 关于recovery.img
+# 关于recovery.img
 
 同样的方法适用于recovery.img
 
-## 工具
+# 工具
 
 [unpackbootimg/packbootimg](http://www.github.com/niejuhu/mytools)
