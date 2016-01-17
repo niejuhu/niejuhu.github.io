@@ -1,3 +1,8 @@
+---
+title: Android Boot Image
+category: Android
+---
+
 记录Android boot image相关知识，工具使用等。
 
 # Android如何生成boot image

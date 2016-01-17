@@ -1,3 +1,8 @@
+---
+title: Android Secure Boot
+category: Android
+---
+
 Google has a detailed document of this feature, see [Verifying Boot](https://source.android.com/devices/tech/security/verifiedboot/verified-boot.html).
 Here is part of the code.
 

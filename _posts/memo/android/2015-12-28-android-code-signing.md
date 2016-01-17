@@ -1,3 +1,8 @@
+---
+title: Android Code Signning
+category: Android
+---
+
 Some notes about android code signing.
 
 # AOSP apk signing

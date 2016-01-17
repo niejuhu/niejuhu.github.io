@@ -1,3 +1,8 @@
+---
+title: init process
+category: Android
+---
+
 Android boot.img中的内核完成初始化之后，启动init进程。init进程完成以下工作：
 
 1. 解析init.rc脚本。此脚本配置了Android启动中要执行的任务
