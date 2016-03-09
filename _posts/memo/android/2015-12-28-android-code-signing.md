@@ -24,7 +24,7 @@ We can use the `make_key` in aosp to create keys used by signapk.
 		$ evelopment/tools/make_key testkey  '/C=US/ST=California/L=Mountain \
 		View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
 
-Here is the actual commands run by `make_key`:
+Here are the actual commands run by `make_key`:
 
 		# Create the private key and the private key never touch the disk
 		mknod ${one} p
@@ -131,7 +131,7 @@ command to view the signature and use openssl smime command to verify the signat
 
 # Dump certificate from signed apk
 
-Some times you want to view or dump to a file the signing certificate. Here is the commands:
+Some times you want to view or dump to a file the signing certificate. Here are the commands:
 
 		# View from apk file.
 		$ keytool -printcert -jarfile sig.apk
