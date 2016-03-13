@@ -1,5 +1,6 @@
 ---
 title: Android Code Signning
+layout: post
 category: Android
 ---
 

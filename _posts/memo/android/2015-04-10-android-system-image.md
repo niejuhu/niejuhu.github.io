@@ -1,5 +1,6 @@
 ---
 titie: System Image Build
+layout: post
 category: Android
 ---
 

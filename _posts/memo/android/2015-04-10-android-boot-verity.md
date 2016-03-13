@@ -1,5 +1,6 @@
 ---
 title: Android Secure Boot
+layout: post
 category: Android
 ---
 

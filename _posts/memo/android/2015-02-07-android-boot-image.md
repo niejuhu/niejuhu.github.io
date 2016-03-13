@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Android Boot Image
 category: Android
 ---

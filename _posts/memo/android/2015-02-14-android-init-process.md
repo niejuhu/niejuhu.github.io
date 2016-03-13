@@ -1,5 +1,6 @@
 ---
 title: init process
+layout: post
 category: Android
 ---
 

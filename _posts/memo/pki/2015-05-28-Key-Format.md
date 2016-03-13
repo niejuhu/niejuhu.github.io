@@ -1,5 +1,6 @@
 ---
 title: Key format
+layout: post
 category: PKI
 ---
 
