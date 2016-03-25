@@ -4,10 +4,10 @@ layout: post
 category: Android
 ---
 
-Google has a detailed documention of this feature, see[Verifying Boot](https://source.android.com/devices/tech/security/verifiedboot/verified-boot.html).
+Google has a detailed documention of this feature, see [Verifying Boot](https://source.android.com/devices/tech/security/verifiedboot/verified-boot.html).
 It should be read carefully. Here is part of the code.
 
-# Products configuration
+# Products configurations
 
 To support verified boot, products should include some configurations.
 
@@ -32,7 +32,7 @@ variables:
 
     I do not cover these contents in this post.
 
-# Signing boot.img
+# Sign boot.img
 
 boot.img is signed if `PRODUCT_SUPPORTS_BOOT_SIGNER` is set to true.
 
