@@ -21,7 +21,9 @@ Here is an short version.
 
 ## `vdso_offset_sigtramp` undeclared
 
-Just grep `vdso_offset_sigtramp` and you will get something like this:
+Find `arch/arm64/kernel/vdso/gen_vdso_offsets.sh`, change the last "\t" to " ".
+
+Or, grep `vdso_offset_sigtramp` and you will get something like this:
 
         /arch/arm64/kernel/vdso/vdso-offsets.h:#define vdso_offset_sigtrampt0x04e0
 
